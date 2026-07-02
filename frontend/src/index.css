@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CSS Custom Properties for chart colors (Tailwind colors not available as CSS vars natively) */
+:root {
+  --color-primary: #a4e6ff;
+  --color-primary-container: #00d1ff;
+  --color-primary-fixed-dim: #4cd6ff;
+  --color-secondary: #ffdb9d;
+  --color-secondary-fixed-dim: #ffba20;
+  --color-secondary-container: #feb700;
+  --color-tertiary: #ffd1ce;
+  --color-tertiary-container: #ffaaa4;
+  --color-error: #ffb4ab;
+  --color-on-surface: #dfe2f1;
+  --color-on-surface-variant: #bbc9cf;
+  --color-surface-container-lowest: #0a0e18;
+  --color-surface-container-low: #171b26;
+  --color-surface-container: #1c1f2a;
+  --color-outline-variant: #3c494e;
+}
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    background-color: #0a0e18;
+    color: #dfe2f1;
+  }
+  
+  body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-color: #0a0e18;
+    color: #dfe2f1;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  #root {
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    background: rgba(53, 57, 68, 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #0a0e18;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #3c494e;
+    border-radius: 10px;
+  }
+  
+  .pulse-dot {
+    position: relative;
+  }
+  .pulse-dot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: inherit;
+    animation: pulse-ring 2s infinite;
+  }
+  
+  @keyframes pulse-ring {
+    0%   { transform: scale(1); opacity: 0.5; }
+    100% { transform: scale(3); opacity: 0; }
+  }
+
+  /* Toast slide-in animation */
+  @keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to   { transform: translateX(0);    opacity: 1; }
+  }
+  @keyframes slideOutRight {
+    from { transform: translateX(0);    opacity: 1; }
+    to   { transform: translateX(120%); opacity: 0; }
+  }
+  
+  .toast-enter {
+    animation: slideInRight 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .toast-exit {
+    animation: slideOutRight 0.3s ease-in both;
+  }
+
+  /* Neon glow variants */
+  .glow-cyan {
+    box-shadow: 0 0 20px rgba(0, 209, 255, 0.3), 0 0 40px rgba(0, 209, 255, 0.15);
+  }
+  .glow-red {
+    box-shadow: 0 0 20px rgba(255, 170, 164, 0.4), 0 0 40px rgba(147, 0, 20, 0.3);
+  }
+  
+  /* Chart tooltip */
+  .recharts-tooltip-wrapper .recharts-default-tooltip {
+    background: #1c1f2a !important;
+    border: 1px solid #3c494e !important;
+    border-radius: 8px !important;
+  }
+}
